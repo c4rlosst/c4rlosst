@@ -66,7 +66,7 @@
 <text x="1531.0" y="114.1" font-size="18" fill="#c9d1d9" textLength="32.4" lengthAdjust="spacingAndGlyphs" xml:space="preserve">sai</text>
 <g transform="translate(549.2,139.5) scale(1.286)" fill="none" stroke="#79c0ff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><rect x="1.3" y="4.3" width="9.4" height="6.2" rx="1"/><path d="M4.2 4.3V3.1a1 1 0 0 1 1-1h1.6a1 1 0 0 1 1 1v1.2"/><line x1="1.3" y1="7.4" x2="10.7" y2="7.4"/></g>
 <text x="580.6" y="151.0" font-size="18" font-weight="600" fill="#ffa657">Role:</text>
-<text x="642.6" y="151.0" font-size="18" fill="#3d4653" style="letter-spacing:3.2px" xml:space="preserve">······················</text>
+<text x="642.6" y="151.0" font-size="18" fill="#3d4653" style="letter-spacing:3.2px" xml:space="preserve">···························</text>
 <text x="904.6" y="151.0" font-size="18" fill="#c9d1d9" textLength="658.8" lengthAdjust="spacingAndGlyphs" xml:space="preserve">Data Scientist, WebDev, GameDev, UI/UX Designer</text>
 <g transform="translate(549.2,176.4) scale(1.286)" fill="none" stroke="#79c0ff" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4.3 3.2 1 6.9l3.3 3.7"/><path d="M7.7 3.2 11 6.9l-3.3 3.7"/></g>
 <text x="580.6" y="187.9" font-size="18" font-weight="600" fill="#ffa657">Languages:</text>
