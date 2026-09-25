@@ -12,12 +12,12 @@ import pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
 
-W, H = 1100, 420
-ART_X, ART_W, ART_H = 32, 400, 358
-PANEL_X = 474
+W, H = 1060, 420
+ART_X, ART_W, ART_H = 40, 333, 358
+PANEL_X = 420
 ICON_X = PANEL_X
 LABEL_X = PANEL_X + 34
-VALUE_X = 636
+VALUE_X = 582
 RIGHT = W - 30
 
 FONT = "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace"
@@ -40,8 +40,9 @@ THEMES = {
                         "#9fb8d3", "#9cc0c8", "#9cc4b4", "#b5c79a", "#d6c89c"]),
     "light": dict(bg="#ffffff", border="#d0d7de", art="#1f2328", text="#1f2328",
                   label="#2f7d14", accent="#5f8a00", rule="#d8dee4", muted="#8c959f",
-                  tints=["#2b3040", "#3a3050", "#33334f", "#43385a", "#2f3a58",
-                         "#4f6f92", "#5a8d96", "#5f9a82", "#8aa060", "#a88f4a"]),
+                  art_weight=700,
+                  tints=["#5f6883", "#52487a", "#484878", "#54457f", "#3a4a78",
+                         "#1f4c7a", "#125a63", "#135a40", "#3f5a12", "#6b4f06"]),
 }
 
 ICONS = {
@@ -73,32 +74,35 @@ def icon(name, x, y, c):
             f'stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">{ICONS[name]}</g>')
 
 
-RAMP = " .:-=+*#%@"
-
-
-def art(c, ascii_rows, levels, invert=False):
-    n, cols = len(ascii_rows), len(ascii_rows[0])
+def art(c, data):
+    """Returns (svg, css). Each glyph takes its own muted color from the photo, quantized to a small palette."""
+    chars, colors = data["chars"], data["colors"]
+    n = len(chars)
     pitch = ART_H / n
     fs = pitch * 0.98
     y0 = (H - ART_H) / 2
+    classes = {}
+
+    def cls(hex_):
+        return classes.setdefault(hex_, f"c{len(classes)}")
+
     out = []
-    for i, (row, lv) in enumerate(zip(ascii_rows, levels)):
-        if invert:
-            row = row.translate(str.maketrans(RAMP, RAMP[::-1]))
+    for i, (row, row_c) in enumerate(zip(chars, colors)):
         spans, cur, buf = [], None, ""
-        for ch, l in zip(row, lv):
+        for ch, col in zip(row, row_c):
             if ch == " ":
-                l = cur if cur is not None else l
-            if l != cur and buf:
+                col = cur if cur is not None else col
+            if col != cur and buf:
                 spans.append((cur, buf)); buf = ""
-            cur = l; buf += ch
+            cur = col; buf += ch
         spans.append((cur, buf))
         body = "".join(
-            f'<tspan class="a{l}">{html.escape(t).replace(" ", "&#160;")}</tspan>' for l, t in spans)
+            f'<tspan class="{cls(col)}">{html.escape(t).replace(" ", "&#160;")}</tspan>' for col, t in spans)
         y = y0 + pitch * (i + 0.8)
-        out.append(f'<text x="{ART_X}" y="{y:.2f}" font-size="{fs:.2f}" textLength="{ART_W}" '
-                   f'xml:space="preserve">{body}</text>')
-    return "\n".join(out)
+        out.append(f'<text x="{ART_X}" y="{y:.2f}" font-size="{fs:.2f}" font-weight="{c.get("art_weight", 400)}" '
+                   f'textLength="{ART_W}" xml:space="preserve">{body}</text>')
+    css = "".join(f".{k}{{fill:{h}}}" for h, k in classes.items())
+    return "\n".join(out), css
 
 
 TITLE = "c4rlosst@github"
@@ -106,13 +110,14 @@ TITLE_W = len(TITLE) * 22 * 0.6  # monospace advance at 22px
 TYPE_SECONDS = 9
 
 
-def build(theme, ascii_rows, levels):
+def build(theme, data):
     c = THEMES[theme]
+    art_svg, art_css = art(c, data[theme])
     p = []
     p.append(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
              f'role="img" aria-label="sai (c4rlosst) profile card" font-family="{FONT}">')
     p.append(f'<style>{font_face()}'
-             + "".join(f".a{i}{{fill:{t}}}" for i, t in enumerate(c["tints"])) +
+             + art_css +
              f'.k{{font-size:16px;font-weight:700;fill:{c["label"]}}}'
              f'.v{{font-size:15px;fill:{c["text"]}}}'
              f'.h{{font-size:22px;font-weight:700;fill:{c["accent"]}}}'
@@ -132,7 +137,7 @@ def build(theme, ascii_rows, levels):
              f'@media (prefers-reduced-motion:reduce){{.ty,.cur,.cur rect{{animation:none}}.cur{{display:none}}}}'
              f'</style>')
     p.append(f'<rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" rx="14" fill="{c["bg"]}" stroke="{c["border"]}"/>')
-    p.append(art(c, ascii_rows, levels, invert=theme == "light"))
+    p.append(art_svg)
 
     y = 58
     p.append(icon("term", ICON_X, y, c))
@@ -207,13 +212,10 @@ def build_marquee(theme):
 
 
 def main():
-    ascii_rows = (ASSETS / "ascii.txt").read_text(encoding="utf8").split("\n")
-    levels = (ASSETS / "ascii_levels.txt").read_text(encoding="utf8").split("\n")
-    ascii_rows = [r for r in ascii_rows if r != ""]
-    levels = [r for r in levels if r != ""]
-    assert len(ascii_rows) == len(levels)
+    import json
+    data = json.loads((ASSETS / "ascii_data.json").read_text(encoding="utf8"))
     for theme in THEMES:
-        (ASSETS / f"profile-card-{theme}.svg").write_text(build(theme, ascii_rows, levels), encoding="utf8")
+        (ASSETS / f"profile-card-{theme}.svg").write_text(build(theme, data), encoding="utf8")
         print("wrote", f"profile-card-{theme}.svg")
         (ASSETS / f"marquee-{theme}.svg").write_text(build_marquee(theme), encoding="utf8")
         print("wrote", f"marquee-{theme}.svg")
@@ -221,8 +223,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
