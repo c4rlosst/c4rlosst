@@ -101,6 +101,11 @@ def art(c, ascii_rows, levels, invert=False):
     return "\n".join(out)
 
 
+TITLE = "c4rlosst@github"
+TITLE_W = len(TITLE) * 22 * 0.6  # monospace advance at 22px
+TYPE_SECONDS = 9
+
+
 def build(theme, ascii_rows, levels):
     c = THEMES[theme]
     p = []
@@ -112,13 +117,27 @@ def build(theme, ascii_rows, levels):
              f'.v{{font-size:15px;fill:{c["text"]}}}'
              f'.h{{font-size:22px;font-weight:700;fill:{c["accent"]}}}'
              f'.s{{font-size:17px;font-weight:700;fill:{c["accent"]}}}'
+             f'.ty{{animation:tyclip {TYPE_SECONDS}s linear infinite}}'
+             f'.cur{{animation:tymove {TYPE_SECONDS}s linear infinite}}'
+             f'.cur rect{{animation:blink 1s steps(1) infinite}}'
+             f'@keyframes tyclip{{'
+             f'0%{{clip-path:inset(0 100% 0 0);animation-timing-function:steps({len(TITLE)},end)}}'
+             f'25%,70%{{clip-path:inset(0 0 0 0);animation-timing-function:steps({len(TITLE)},end)}}'
+             f'95%,100%{{clip-path:inset(0 100% 0 0)}}}}'
+             f'@keyframes tymove{{'
+             f'0%{{transform:translateX(0);animation-timing-function:steps({len(TITLE)},end)}}'
+             f'25%,70%{{transform:translateX({TITLE_W:.1f}px);animation-timing-function:steps({len(TITLE)},end)}}'
+             f'95%,100%{{transform:translateX(0)}}}}'
+             f'@keyframes blink{{50%{{opacity:0}}}}'
+             f'@media (prefers-reduced-motion:reduce){{.ty,.cur,.cur rect{{animation:none}}.cur{{display:none}}}}'
              f'</style>')
     p.append(f'<rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" rx="14" fill="{c["bg"]}" stroke="{c["border"]}"/>')
     p.append(art(c, ascii_rows, levels, invert=theme == "light"))
 
     y = 58
     p.append(icon("term", ICON_X, y, c))
-    p.append(f'<text class="h" x="{LABEL_X}" y="{y}">c4rlosst@github</text>')
+    p.append(f'<text class="h ty" x="{LABEL_X}" y="{y}">{TITLE}</text>')
+    p.append(f'<g class="cur"><rect x="{LABEL_X}" y="{y - 19}" width="9" height="24" fill="{c["accent"]}"/></g>')
     p.append(f'<line x1="{PANEL_X}" y1="80" x2="{RIGHT}" y2="80" stroke="{c["rule"]}"/>')
 
     y = 118
@@ -175,7 +194,7 @@ def build_marquee(theme):
 <clipPath id="r"><rect x="0.5" y="0.5" width="{W - 1}" height="{MARQUEE_H - 1}" rx="12"/></clipPath>
 <linearGradient id="f" x1="0" x2="1"><stop offset="0" stop-color="{c["bg"]}"/><stop offset=".06" stop-color="{c["bg"]}" stop-opacity="0"/><stop offset=".94" stop-color="{c["bg"]}" stop-opacity="0"/><stop offset="1" stop-color="{c["bg"]}"/></linearGradient>
 </defs>
-<rect x="0.5" y="0.5" width="{W - 1}" height="{MARQUEE_H - 1}" rx="12" fill="{c["bg"]}" stroke="{c["border"]}"/>
+<rect x="0.5" y="0.5" width="{W - 1}" height="{MARQUEE_H - 1}" rx="12" fill="{c["bg"]}"/>
 <g clip-path="url(#r)">
 <g class="belt">
 <text class="t" x="0" y="{y:.1f}" textLength="{seg_w:.1f}" xml:space="preserve">{spans}</text>
