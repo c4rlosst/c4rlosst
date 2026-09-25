@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - scripts/build_contributions.py
+      - scripts/build_stats.py
       - .github/workflows/contributions.yml
 
 permissions:
@@ -27,11 +28,13 @@ jobs:
           # contributions are included in the counts.
           GH_TOKEN: ${{ secrets.CONTRIB_TOKEN }}
           GH_USER: ${{ github.repository_owner }}
-        run: python scripts/build_contributions.py
+        run: |
+          python scripts/build_contributions.py
+          python scripts/build_stats.py
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/contributions-*.svg
+          git add assets/contributions-*.svg assets/stats-*.svg
           git diff --cached --quiet || git commit -m "Update contribution graph"
           git push
