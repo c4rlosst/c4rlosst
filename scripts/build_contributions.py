@@ -52,6 +52,7 @@ THEMES = {
 }
 
 CELL, GAP, PAD_X, TOP = 12, 3, 32, 78
+WAVE_PERIOD, WAVE_STEP = 8, 0.09  # seconds per loop; delay between columns
 STEP = CELL + GAP
 
 
@@ -75,7 +76,12 @@ def build(theme, cal):
     H = TOP + 7 * STEP + 44
     p = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
          f'role="img" aria-label="{USER} contribution graph" font-family="{FONT}">',
-         f'<style>{font_face()}</style>',
+         f'<style>{font_face()}'
+         f'.on{{transform-box:fill-box;transform-origin:center;animation:wave {WAVE_PERIOD}s ease-in-out infinite}}'
+         f'@keyframes wave{{0%,12%,100%{{transform:scale(1);filter:none}}'
+         f'6%{{transform:scale(1.45);filter:drop-shadow(0 0 4px {c["accent"]})}}}}'
+         f'@media (prefers-reduced-motion:reduce){{.on{{animation:none}}}}'
+         f'</style>',
          f'<rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" rx="14" fill="{c["bg"]}" stroke="{c["border"]}"/>',
          f'<text x="{PAD_X}" y="40" font-size="17" font-weight="700" fill="{c["accent"]}">Contributions</text>',
          f'<text x="{W - PAD_X}" y="40" font-size="14" text-anchor="end" fill="{c["muted"]}">'
@@ -91,8 +97,10 @@ def build(theme, cal):
         for d in week["contributionDays"]:
             y = TOP + datetime.date.fromisoformat(d["date"]).isoweekday() % 7 * STEP
             n = d["contributionCount"]
+            level = LEVELS[d["contributionLevel"]]
+            anim = f' class="on" style="animation-delay:{wi * WAVE_STEP:.2f}s"' if level else ""
             p.append(f'<rect x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="2.5" '
-                     f'fill="{c["cells"][LEVELS[d["contributionLevel"]]]}"><title>{n} on {d["date"]}</title></rect>')
+                     f'fill="{c["cells"][level]}"{anim}><title>{n} on {d["date"]}</title></rect>')
     ly = H - 22
     lx = W - PAD_X - 5 * STEP - 30
     p.append(f'<text x="{lx - 8}" y="{ly + 10}" font-size="11" text-anchor="end" fill="{c["muted"]}">Less</text>')
