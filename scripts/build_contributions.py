@@ -1,4 +1,4 @@
-"""Builds assets/contributions-{dark,light}.svg from the GitHub GraphQL API.
+﻿"""Builds assets/contributions-{dark,light}.svg from the GitHub GraphQL API.
 
 Needs GH_TOKEN (a token for the profile owner). Private contributions are
 included in the counts when "Include private contributions on my profile" is
@@ -34,9 +34,9 @@ LEVELS = {"NONE": 0, "FIRST_QUARTILE": 1, "SECOND_QUARTILE": 2, "THIRD_QUARTILE"
 FONT = "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', 'DejaVu Sans Mono', monospace"
 
 THEMES = {
-    "dark": dict(bg="#0d1117", border="#30363d", text="#e6edf3", muted="#8b949e", accent="#79c0ff",
+    "dark": dict(bg="#0d1117", border="#30363d", text="#e6edf3", muted="#8b949e", accent="#56d364",
                  cells=["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"]),
-    "light": dict(bg="#ffffff", border="#d0d7de", text="#1f2328", muted="#656d76", accent="#0969da",
+    "light": dict(bg="#ffffff", border="#d0d7de", text="#1f2328", muted="#656d76", accent="#1a7f37",
                   cells=["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"]),
 }
 
@@ -101,3 +101,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
