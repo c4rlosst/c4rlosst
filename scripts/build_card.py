@@ -24,11 +24,11 @@ FONT = "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mo
 
 THEMES = {
     "dark": dict(bg="#0d1117", border="#30363d", art="#f0f6fc", text="#e6edf3",
-                 label="#ffa657", accent="#79c0ff", rule="#21262d", muted="#6e7681",
+                 label="#c9a6ff", accent="#56d364", rule="#21262d", muted="#6e7681",
                  tints=["#6b7591", "#8f82ad", "#8a88b3", "#a598c2", "#8b9cc4",
                         "#9fb8d3", "#9cc0c8", "#9cc4b4", "#b5c79a", "#d6c89c"]),
     "light": dict(bg="#ffffff", border="#d0d7de", art="#1f2328", text="#1f2328",
-                  label="#bc4c00", accent="#0969da", rule="#d8dee4", muted="#8c959f",
+                  label="#8250df", accent="#1a7f37", rule="#d8dee4", muted="#8c959f",
                   tints=["#2b3040", "#3a3050", "#33334f", "#43385a", "#2f3a58",
                          "#4f6f92", "#5a8d96", "#5f9a82", "#8aa060", "#a88f4a"]),
 }
@@ -143,5 +143,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
