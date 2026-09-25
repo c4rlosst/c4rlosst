@@ -31,7 +31,18 @@ query($login: String!) {
 """
 
 LEVELS = {"NONE": 0, "FIRST_QUARTILE": 1, "SECOND_QUARTILE": 2, "THIRD_QUARTILE": 3, "FOURTH_QUARTILE": 4}
-FONT = "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', 'DejaVu Sans Mono', monospace"
+FONT = "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace"
+
+
+def font_face():
+    """Embed JetBrains Mono so it renders anywhere (GitHub blocks web fonts in images)."""
+    import base64
+    css = ""
+    for weight in (400, 700):
+        data = base64.b64encode((ASSETS / "fonts" / f"JetBrainsMono-{weight}.woff2").read_bytes()).decode()
+        css += (f"@font-face{{font-family:'JetBrains Mono';font-weight:{weight};"
+                f"src:url(data:font/woff2;base64,{data}) format('woff2')}}")
+    return css
 
 THEMES = {
     "dark": dict(bg="#0d1117", border="#30363d", text="#e6edf3", muted="#8b949e", accent="#b8ea2b",
@@ -64,6 +75,7 @@ def build(theme, cal):
     H = TOP + 7 * STEP + 44
     p = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
          f'role="img" aria-label="{USER} contribution graph" font-family="{FONT}">',
+         f'<style>{font_face()}</style>',
          f'<rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" rx="14" fill="{c["bg"]}" stroke="{c["border"]}"/>',
          f'<text x="{PAD_X}" y="40" font-size="17" font-weight="700" fill="{c["accent"]}">Contributions</text>',
          f'<text x="{W - PAD_X}" y="40" font-size="14" text-anchor="end" fill="{c["muted"]}">'

@@ -20,7 +20,18 @@ LABEL_X = PANEL_X + 34
 VALUE_X = 636
 RIGHT = W - 30
 
-FONT = "ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', 'DejaVu Sans Mono', monospace"
+FONT = "'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace"
+
+
+def font_face():
+    """Embed JetBrains Mono so it renders anywhere (GitHub blocks web fonts in images)."""
+    import base64
+    css = ""
+    for weight in (400, 700):
+        data = base64.b64encode((ASSETS / "fonts" / f"JetBrainsMono-{weight}.woff2").read_bytes()).decode()
+        css += (f"@font-face{{font-family:'JetBrains Mono';font-weight:{weight};"
+                f"src:url(data:font/woff2;base64,{data}) format('woff2')}}")
+    return css
 
 THEMES = {
     "dark": dict(bg="#0d1117", border="#30363d", art="#f0f6fc", text="#e6edf3",
@@ -95,7 +106,7 @@ def build(theme, ascii_rows, levels):
     p = []
     p.append(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
              f'role="img" aria-label="sai (c4rlosst) profile card" font-family="{FONT}">')
-    p.append(f'<style>'
+    p.append(f'<style>{font_face()}'
              + "".join(f".a{i}{{fill:{t}}}" for i, t in enumerate(c["tints"])) +
              f'.k{{font-size:16px;font-weight:700;fill:{c["label"]}}}'
              f'.v{{font-size:15px;fill:{c["text"]}}}'
@@ -130,6 +141,52 @@ def build(theme, ascii_rows, levels):
     return "\n".join(p)
 
 
+MARQUEE_ITEMS = ["JAVASCRIPT", "PYTHON", "CSS", "REACT", "HTML", "SQL"]
+MARQUEE_H, MARQUEE_FS, MARQUEE_SECONDS = 48, 15, 40
+
+
+def build_marquee(theme):
+    """Scrolling ticker; pure CSS animation, which GitHub renders inside <img>."""
+    c = THEMES[theme]
+    adv = MARQUEE_FS * 0.6
+    sep = "   ·   "
+    n = 0
+    seg = []
+    while True:  # repeat the item list until one segment is wider than the card
+        for item in MARQUEE_ITEMS:
+            seg.append((item + sep, n % 2))
+            n += 1
+        if sum(len(t) for t, _ in seg) * adv >= W and n % 2 == 0:
+            break
+    chars = sum(len(t) for t, _ in seg)
+    seg_w = chars * adv
+    spans = "".join(f'<tspan class="m{i}">{html.escape(t)}</tspan>' for t, i in seg)
+    y = MARQUEE_H / 2 + MARQUEE_FS * 0.35
+    dur = MARQUEE_SECONDS * seg_w / 1100
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {MARQUEE_H}" width="{W}" height="{MARQUEE_H}" role="img" aria-label="JavaScript, Python, CSS, React, HTML, SQL" font-family="{FONT}">
+<style>{font_face()}
+.m0{{fill:{c["accent"]}}}.m1{{fill:{c["label"]}}}
+.t{{font-size:{MARQUEE_FS}px;font-weight:700;letter-spacing:0}}
+.belt{{animation:slide {dur:.1f}s linear infinite}}
+@keyframes slide{{from{{transform:translateX(0)}}to{{transform:translateX(-{seg_w:.1f}px)}}}}
+@media (prefers-reduced-motion:reduce){{.belt{{animation:none}}}}
+</style>
+<defs>
+<clipPath id="r"><rect x="0.5" y="0.5" width="{W - 1}" height="{MARQUEE_H - 1}" rx="12"/></clipPath>
+<linearGradient id="f" x1="0" x2="1"><stop offset="0" stop-color="{c["bg"]}"/><stop offset=".06" stop-color="{c["bg"]}" stop-opacity="0"/><stop offset=".94" stop-color="{c["bg"]}" stop-opacity="0"/><stop offset="1" stop-color="{c["bg"]}"/></linearGradient>
+</defs>
+<rect x="0.5" y="0.5" width="{W - 1}" height="{MARQUEE_H - 1}" rx="12" fill="{c["bg"]}" stroke="{c["border"]}"/>
+<g clip-path="url(#r)">
+<g class="belt">
+<text class="t" x="0" y="{y:.1f}" textLength="{seg_w:.1f}" xml:space="preserve">{spans}</text>
+<text class="t" x="{seg_w:.1f}" y="{y:.1f}" textLength="{seg_w:.1f}" xml:space="preserve">{spans}</text>
+<text class="t" x="{2 * seg_w:.1f}" y="{y:.1f}" textLength="{seg_w:.1f}" xml:space="preserve">{spans}</text>
+</g>
+<rect width="{W}" height="{MARQUEE_H}" fill="url(#f)"/>
+</g>
+</svg>"""
+
+
 def main():
     ascii_rows = (ASSETS / "ascii.txt").read_text(encoding="utf8").split("\n")
     levels = (ASSETS / "ascii_levels.txt").read_text(encoding="utf8").split("\n")
@@ -139,6 +196,8 @@ def main():
     for theme in THEMES:
         (ASSETS / f"profile-card-{theme}.svg").write_text(build(theme, ascii_rows, levels), encoding="utf8")
         print("wrote", f"profile-card-{theme}.svg")
+        (ASSETS / f"marquee-{theme}.svg").write_text(build_marquee(theme), encoding="utf8")
+        print("wrote", f"marquee-{theme}.svg")
 
 
 if __name__ == "__main__":
