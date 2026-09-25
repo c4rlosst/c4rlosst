@@ -1,44 +1,27 @@
-﻿<div align="center">
+<div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/profile-card-dark.svg?v=12">
-  <source media="(prefers-color-scheme: light)" srcset="assets/profile-card-light.svg?v=12">
-  <img alt="sai (c4rlosst) — Data Scientist, WebDev, GameDev, UI/UX Designer" src="assets/profile-card-dark.svg?v=12" width="100%">
-</picture>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/profile-card-dark.svg?v=13">
+    <source media="(prefers-color-scheme: light)" srcset="assets/profile-card-light.svg?v=13">
+    <img alt="sai (c4rlosst) — Data Scientist, WebDev, GameDev, UI/UX Designer" src="assets/profile-card-dark.svg?v=13" width="100%">
+  </picture>
+</p>
 
-<br>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/stats-dark.svg?v=13">
+    <source media="(prefers-color-scheme: light)" srcset="assets/stats-light.svg?v=13">
+    <img alt="c4rlosst's GitHub stats" src="assets/stats-dark.svg?v=13" width="100%">
+  </picture>
+</p>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/marquee-dark.svg?v=12">
-  <source media="(prefers-color-scheme: light)" srcset="assets/marquee-light.svg?v=12">
-  <img alt="JavaScript, Python, CSS, React, HTML, SQL" src="assets/marquee-dark.svg?v=12" width="100%">
-</picture>
-
-<br>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/stats-dark.svg?v=12">
-  <source media="(prefers-color-scheme: light)" srcset="assets/stats-light.svg?v=12">
-  <img alt="c4rlosst's GitHub stats" src="assets/stats-dark.svg?v=12" width="100%">
-</picture>
-
-<br><br>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/contributions-dark.svg?v=12">
-  <source media="(prefers-color-scheme: light)" srcset="assets/contributions-light.svg?v=12">
-  <img alt="c4rlosst's contribution graph" src="assets/contributions-dark.svg?v=12" width="100%">
-</picture>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/contributions-dark.svg?v=13">
+    <source media="(prefers-color-scheme: light)" srcset="assets/contributions-light.svg?v=13">
+    <img alt="c4rlosst's contribution graph" src="assets/contributions-dark.svg?v=13" width="100%">
+  </picture>
+</p>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
