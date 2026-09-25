@@ -10,22 +10,22 @@
 </g>
 <g class="tile" style="animation-delay:0.08s">
 <text class="lab" x="222" y="92">Commits</text>
-<text class="val" x="222" y="128" style="animation-delay:2.90s">235</text>
+<text class="val" x="222" y="128" style="animation-delay:2.90s">609</text>
 <text class="sub" x="222" y="148">last 12 months</text>
 </g>
 <g class="tile" style="animation-delay:0.16s">
 <text class="lab" x="412" y="92">Pull requests</text>
-<text class="val" x="412" y="128" style="animation-delay:4.40s">6</text>
+<text class="val" x="412" y="128" style="animation-delay:4.40s">5</text>
 <text class="sub" x="412" y="148">all time</text>
 </g>
 <g class="tile" style="animation-delay:0.24s">
 <text class="lab" x="32" y="192">Repositories</text>
-<text class="val" x="32" y="228" style="animation-delay:5.90s">34</text>
+<text class="val" x="32" y="228" style="animation-delay:5.90s">15</text>
 <text class="sub" x="32" y="248">owned</text>
 </g>
 <g class="tile" style="animation-delay:0.32s">
 <text class="lab" x="222" y="192">Stars earned</text>
-<text class="val" x="222" y="228" style="animation-delay:7.40s">2</text>
+<text class="val" x="222" y="228" style="animation-delay:7.40s">1</text>
 <text class="sub" x="222" y="248">across repos</text>
 </g>
 <g class="tile" style="animation-delay:0.40s">
@@ -38,30 +38,30 @@
 <clipPath id="bc"><rect x="660" y="104" width="408" height="12" rx="6"/></clipPath>
 <rect x="660" y="104" width="408" height="12" rx="6" fill="#161b22"/>
 <g clip-path="url(#bc)"><g class="bar">
-<rect x="660.0" y="104" width="217.4" height="12" fill="#b8ea2b"/>
-<rect x="876.9" y="104" width="118.9" height="12" fill="#4fae2c"/>
-<rect x="995.3" y="104" width="34.5" height="12" fill="#79c0ff"/>
-<rect x="1029.3" y="104" width="18.5" height="12" fill="#9cc4b4"/>
-<rect x="1047.3" y="104" width="15.8" height="12" fill="#d6c89c"/>
-<rect x="1062.6" y="104" width="4.0" height="12" fill="#a598c2"/>
+<rect x="660.0" y="104" width="137.8" height="12" fill="#b8ea2b"/>
+<rect x="797.3" y="104" width="125.7" height="12" fill="#4fae2c"/>
+<rect x="922.5" y="104" width="59.6" height="12" fill="#79c0ff"/>
+<rect x="981.6" y="104" width="37.6" height="12" fill="#9cc4b4"/>
+<rect x="1018.7" y="104" width="32.9" height="12" fill="#d6c89c"/>
+<rect x="1051.1" y="104" width="15.2" height="12" fill="#a598c2"/>
 </g>
 <g class="shine"><rect x="660" y="104" width="90" height="12" fill="url(#sh)"/></g></g>
 <circle cx="665.0" cy="144" r="5" fill="#b8ea2b"/>
-<text class="ln" x="678.0" y="148">Liquid</text>
-<text class="pc" x="848.0" y="148" text-anchor="end">53.2%</text>
+<text class="ln" x="678.0" y="148">JavaScript</text>
+<text class="pc" x="848.0" y="148" text-anchor="end">33.6%</text>
 <circle cx="869.0" cy="144" r="5" fill="#4fae2c"/>
-<text class="ln" x="882.0" y="148">JavaScript</text>
-<text class="pc" x="1052.0" y="148" text-anchor="end">29.0%</text>
+<text class="ln" x="882.0" y="148">HTML</text>
+<text class="pc" x="1052.0" y="148" text-anchor="end">30.7%</text>
 <circle cx="665.0" cy="178" r="5" fill="#79c0ff"/>
-<text class="ln" x="678.0" y="182">CSS</text>
-<text class="pc" x="848.0" y="182" text-anchor="end">8.3%</text>
+<text class="ln" x="678.0" y="182">TypeScript</text>
+<text class="pc" x="848.0" y="182" text-anchor="end">14.5%</text>
 <circle cx="869.0" cy="178" r="5" fill="#9cc4b4"/>
-<text class="ln" x="882.0" y="182">HTML</text>
-<text class="pc" x="1052.0" y="182" text-anchor="end">4.4%</text>
+<text class="ln" x="882.0" y="182">CSS</text>
+<text class="pc" x="1052.0" y="182" text-anchor="end">9.1%</text>
 <circle cx="665.0" cy="212" r="5" fill="#d6c89c"/>
-<text class="ln" x="678.0" y="216">TypeScript</text>
-<text class="pc" x="848.0" y="216" text-anchor="end">3.7%</text>
+<text class="ln" x="678.0" y="216">Python</text>
+<text class="pc" x="848.0" y="216" text-anchor="end">7.9%</text>
 <circle cx="869.0" cy="212" r="5" fill="#a598c2"/>
-<text class="ln" x="882.0" y="216">Python</text>
-<text class="pc" x="1052.0" y="216" text-anchor="end">0.9%</text>
+<text class="ln" x="882.0" y="216">GDScript</text>
+<text class="pc" x="1052.0" y="216" text-anchor="end">3.6%</text>
 </svg>
