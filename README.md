@@ -9,14 +9,6 @@
 <br>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/marquee-dark.svg?v=11">
-  <source media="(prefers-color-scheme: light)" srcset="assets/marquee-light.svg?v=11">
-  <img alt="JavaScript, Python, CSS, React, HTML, SQL" src="assets/marquee-dark.svg?v=11" width="100%">
-</picture>
-
-<br>
-
-<picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/stats-dark.svg?v=11">
   <source media="(prefers-color-scheme: light)" srcset="assets/stats-light.svg?v=11">
   <img alt="c4rlosst's GitHub stats" src="assets/stats-dark.svg?v=11" width="100%">
