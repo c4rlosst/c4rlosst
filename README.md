@@ -8,6 +8,10 @@
 
 <br><br>
 
-<img alt="c4rlosst's contribution graph" src="https://ghchart.rshah.org/39d353/c4rlosst" width="100%">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/contributions-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/contributions-light.svg">
+  <img alt="c4rlosst's contribution graph" src="assets/contributions-dark.svg" width="100%">
+</picture>
 
 </div>
