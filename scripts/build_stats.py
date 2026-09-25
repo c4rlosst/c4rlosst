@@ -135,7 +135,7 @@ def build(theme, s):
          f'@keyframes shine{{from{{transform:translateX(-90px)}}to{{transform:translateX({LW + 90}px)}}}}'
          f'@media (prefers-reduced-motion:reduce){{.bar,.tile,.val,.shine{{animation:none}}.shine{{display:none}}}}'
          f'</style>',
-         f'<rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" rx="14" fill="{c["bg"]}" stroke="{c["border"]}"/>',
+         f'<rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" rx="14" fill="{c["bg"]}"/>',
          f'<text class="ttl" x="{PAD}" y="42">Stats</text>',
          f'<line x1="{PAD}" y1="60" x2="{W - PAD}" y2="60" stroke="{c["border"]}" opacity=".6"/>']
 
