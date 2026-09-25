@@ -1,4 +1,4 @@
-"""Builds assets/stats-{dark,light}.svg from the GitHub GraphQL API.
+﻿"""Builds assets/stats-{dark,light}.svg from the GitHub GraphQL API.
 
 Run:  GH_TOKEN=... python scripts/build_stats.py [username]
 """
@@ -43,7 +43,8 @@ query($login: String!) {
 }
 """
 
-W, H = 1100, 262
+SHIFT = 48  # content is laid out on a 262px canvas, then moved up now the title row is gone
+W, H = 1100, 262 - SHIFT + 12
 PAD = 32
 LW = W - PAD - 660  # width of the languages bar
 POP_SLOT = 1.5      # seconds each tile gets in the pop cycle
@@ -136,8 +137,7 @@ def build(theme, s):
          f'@media (prefers-reduced-motion:reduce){{.bar,.tile,.val,.shine{{animation:none}}.shine{{display:none}}}}'
          f'</style>',
          f'<rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" rx="14" fill="{c["bg"]}"/>',
-         f'<text class="ttl" x="{PAD}" y="42">Stats</text>',
-         f'<line x1="{PAD}" y1="60" x2="{W - PAD}" y2="60" stroke="{c["border"]}" opacity=".6"/>']
+         f'<g transform="translate(0,-{SHIFT})">']
 
     # tile grid (3 columns x 2 rows)
     colw, rowh, x0, y0 = 190, 100, PAD, 92
@@ -174,7 +174,7 @@ def build(theme, s):
         p.append(f'<circle cx="{gx + 5}" cy="{gy - 4}" r="5" fill="{c["langs"][i % 6]}"/>')
         p.append(f'<text class="ln" x="{gx + 18}" y="{gy}">{html.escape(name)}</text>')
         p.append(f'<text class="pc" x="{gx + lw / 2 - 16}" y="{gy}" text-anchor="end">{frac * 100:.1f}%</text>')
-    p.append("</svg>")
+    p.append("</g></svg>")
     return "\n".join(p)
 
 
@@ -189,3 +189,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
