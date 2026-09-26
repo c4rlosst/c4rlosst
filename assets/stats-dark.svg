@@ -29,7 +29,7 @@
 </g>
 <g class="tile" style="animation-delay:0.40s">
 <text class="lab" x="412" y="192">Current streak</text>
-<text class="val" x="412" y="228" style="animation-delay:8.90s">12d</text>
+<text class="val" x="412" y="228" style="animation-delay:8.90s">0d</text>
 <text class="sub" x="412" y="248">longest 21d</text>
 </g>
 <text class="lab" x="660" y="92">Top languages</text>
