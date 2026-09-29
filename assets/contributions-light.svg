@@ -383,6 +383,7 @@
 <rect x="812" y="78" width="12" height="12" rx="2.5" fill="#d6efa3" class="on" style="animation-delay:4.68s"><title>5 on 2026-09-27</title></rect>
 <rect x="812" y="93" width="12" height="12" rx="2.5" fill="#d6efa3" class="on" style="animation-delay:4.68s"><title>3 on 2026-09-28</title></rect>
 <rect x="812" y="108" width="12" height="12" rx="2.5" fill="#d6efa3" class="on" style="animation-delay:4.68s"><title>1 on 2026-09-29</title></rect>
+<rect x="812" y="123" width="12" height="12" rx="2.5" fill="#ebedf0"><title>0 on 2026-09-30</title></rect>
 <text x="711" y="215" font-size="11" text-anchor="end" fill="#656d76">Less</text>
 <rect x="719" y="205" width="12" height="12" rx="2.5" fill="#ebedf0"/>
 <rect x="734" y="205" width="12" height="12" rx="2.5" fill="#d6efa3"/>
