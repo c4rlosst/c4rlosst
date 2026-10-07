@@ -12,7 +12,7 @@ import pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
 
-W, H = 1060, 420
+W, H = 1060, 490
 ART_X, ART_W, ART_H = 40, 333, 358
 PANEL_X = 420
 ICON_X = PANEL_X
@@ -51,6 +51,8 @@ ICONS = {
     "role": '<rect x="1.3" y="4.3" width="9.4" height="6.2" rx="1"/><path d="M4.2 4.3V3.1a1 1 0 0 1 1-1h1.6a1 1 0 0 1 1 1v1.2"/><line x1="1.3" y1="7.4" x2="10.7" y2="7.4"/>',
     "code": '<path d="M4.3 3.2 1 6.9l3.3 3.7"/><path d="M7.7 3.2 11 6.9l-3.3 3.7"/>',
     "music": '<circle cx="3" cy="9.6" r="1.5"/><circle cx="8.6" cy="8.1" r="1.5"/><path d="M4.5 9.6V2.4L10.1 1.4v6.7"/>',
+    "cap": '<path d="M6 2 .8 4.6 6 7.2l5.2-2.6z"/><path d="M3 6v2.4c0 .9 1.3 1.6 3 1.6s3-.7 3-1.6V6"/><line x1="11.2" y1="4.6" x2="11.2" y2="8"/>',
+    "sun": '<circle cx="6" cy="6" r="1.9"/><path d="M6 .8v1.6M6 9.6v1.6M.8 6h1.6M9.6 6h1.6M2.3 2.3l1.1 1.1M8.6 8.6l1.1 1.1M2.3 9.7l1.1-1.1M8.6 3.4l1.1-1.1"/>',
     "mail": '<rect x="1" y="2.8" width="10" height="7.4" rx="1"/><path d="M1.3 3.4 6 7.3l4.7-3.9"/>',
     "chat": '<rect x="1" y="2.1" width="10" height="6.6" rx="1.7"/><path d="M4 8.7v2.2l2.4-2.2"/>',
     "link": '<path d="M5 7 7 5"/><rect x="1.3" y="5.6" width="4" height="2.2" rx="1.1" transform="rotate(-45 3.3 6.7)"/><rect x="6.7" y="1.2" width="4" height="2.2" rx="1.1" transform="rotate(-45 8.7 2.3)"/>',
@@ -59,6 +61,8 @@ ICONS = {
 ROWS = [
     ("user", "Name:", "sai"),
     ("role", "Role:", "Data Scientist, WebDev, GameDev, UI/UX Designer"),
+    ("cap", "Studying:", "BS Data Science, 2nd year"),
+    ("sun", "School:", "University of the Philippines Mindanao"),
     ("code", "Languages:", "JavaScript, Python, CSS, React, HTML, SQL"),
     ("music", "Music:", "Producer, Mixer, Recorder, Enthusiast"),
 ]
