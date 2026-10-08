@@ -4,12 +4,12 @@
 <g transform="translate(0,-48)">
 <g class="tile" style="animation-delay:0.00s">
 <text class="lab" x="32" y="92">Contributions</text>
-<text class="val" x="32" y="128" style="animation-delay:1.40s">848</text>
+<text class="val" x="32" y="128" style="animation-delay:1.40s">850</text>
 <text class="sub" x="32" y="148">last 12 months</text>
 </g>
 <g class="tile" style="animation-delay:0.08s">
 <text class="lab" x="222" y="92">Commits</text>
-<text class="val" x="222" y="128" style="animation-delay:2.90s">775</text>
+<text class="val" x="222" y="128" style="animation-delay:2.90s">777</text>
 <text class="sub" x="222" y="148">last 12 months</text>
 </g>
 <g class="tile" style="animation-delay:0.16s">
@@ -19,7 +19,7 @@
 </g>
 <g class="tile" style="animation-delay:0.24s">
 <text class="lab" x="32" y="192">Repositories</text>
-<text class="val" x="32" y="228" style="animation-delay:5.90s">20</text>
+<text class="val" x="32" y="228" style="animation-delay:5.90s">21</text>
 <text class="sub" x="32" y="248">owned</text>
 </g>
 <g class="tile" style="animation-delay:0.32s">
@@ -29,38 +29,38 @@
 </g>
 <g class="tile" style="animation-delay:0.40s">
 <text class="lab" x="412" y="192">Current streak</text>
-<text class="val" x="412" y="228" style="animation-delay:8.90s">23d</text>
-<text class="sub" x="412" y="248">longest 23d</text>
+<text class="val" x="412" y="228" style="animation-delay:8.90s">24d</text>
+<text class="sub" x="412" y="248">longest 24d</text>
 </g>
 <text class="lab" x="660" y="92">Top languages</text>
 <linearGradient id="sh"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
 <clipPath id="bc"><rect x="660" y="104" width="408" height="12" rx="6"/></clipPath>
 <rect x="660" y="104" width="408" height="12" rx="6" fill="#eaeef2"/>
 <g clip-path="url(#bc)"><g class="bar">
-<rect x="660.0" y="104" width="119.0" height="12" fill="#5f8a00"/>
-<rect x="778.5" y="104" width="118.4" height="12" fill="#2f7d14"/>
-<rect x="896.4" y="104" width="59.0" height="12" fill="#0969da"/>
-<rect x="954.9" y="104" width="48.1" height="12" fill="#2f7358"/>
-<rect x="1002.5" y="104" width="32.6" height="12" fill="#86691f"/>
-<rect x="1034.5" y="104" width="31.6" height="12" fill="#66508a"/>
+<rect x="660.0" y="104" width="110.5" height="12" fill="#5f8a00"/>
+<rect x="770.0" y="104" width="107.0" height="12" fill="#2f7d14"/>
+<rect x="876.5" y="104" width="65.7" height="12" fill="#0969da"/>
+<rect x="941.8" y="104" width="53.0" height="12" fill="#2f7358"/>
+<rect x="994.3" y="104" width="43.2" height="12" fill="#86691f"/>
+<rect x="1037.1" y="104" width="29.3" height="12" fill="#66508a"/>
 </g>
 <g class="shine"><rect x="660" y="104" width="90" height="12" fill="url(#sh)"/></g></g>
 <circle cx="665.0" cy="144" r="5" fill="#5f8a00"/>
-<text class="ln" x="678.0" y="148">JavaScript</text>
-<text class="pc" x="848.0" y="148" text-anchor="end">29.1%</text>
+<text class="ln" x="678.0" y="148">HTML</text>
+<text class="pc" x="848.0" y="148" text-anchor="end">27.0%</text>
 <circle cx="869.0" cy="144" r="5" fill="#2f7d14"/>
-<text class="ln" x="882.0" y="148">HTML</text>
-<text class="pc" x="1052.0" y="148" text-anchor="end">28.9%</text>
+<text class="ln" x="882.0" y="148">JavaScript</text>
+<text class="pc" x="1052.0" y="148" text-anchor="end">26.1%</text>
 <circle cx="665.0" cy="178" r="5" fill="#0969da"/>
-<text class="ln" x="678.0" y="182">TypeScript</text>
-<text class="pc" x="848.0" y="182" text-anchor="end">14.3%</text>
+<text class="ln" x="678.0" y="182">Python</text>
+<text class="pc" x="848.0" y="182" text-anchor="end">16.0%</text>
 <circle cx="869.0" cy="178" r="5" fill="#2f7358"/>
-<text class="ln" x="882.0" y="182">GDScript</text>
-<text class="pc" x="1052.0" y="182" text-anchor="end">11.7%</text>
+<text class="ln" x="882.0" y="182">TypeScript</text>
+<text class="pc" x="1052.0" y="182" text-anchor="end">12.9%</text>
 <circle cx="665.0" cy="212" r="5" fill="#86691f"/>
-<text class="ln" x="678.0" y="216">CSS</text>
-<text class="pc" x="848.0" y="216" text-anchor="end">7.9%</text>
+<text class="ln" x="678.0" y="216">GDScript</text>
+<text class="pc" x="848.0" y="216" text-anchor="end">10.5%</text>
 <circle cx="869.0" cy="212" r="5" fill="#66508a"/>
-<text class="ln" x="882.0" y="216">Python</text>
-<text class="pc" x="1052.0" y="216" text-anchor="end">7.6%</text>
+<text class="ln" x="882.0" y="216">CSS</text>
+<text class="pc" x="1052.0" y="216" text-anchor="end">7.1%</text>
 </g></svg>
