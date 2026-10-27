@@ -99,8 +99,10 @@ def summarize(u):
         stars += repo["stargazerCount"]
         for e in repo["languages"]["edges"]:
             sizes[e["node"]["name"]] += e["size"]
-    total = sum(sizes.values()) or 1
-    top = [(n, s / total) for n, s in sizes.most_common(6)]
+    # shares are relative to the languages shown, so the bar fills edge to edge and the legend adds up to 100%
+    shown = sizes.most_common(6)
+    total = sum(s for _, s in shown) or 1
+    top = [(n, s / total) for n, s in shown]
     return dict(
         tiles=[
             ("Contributions", f'{cal["totalContributions"]:,}', "last 12 months"),
