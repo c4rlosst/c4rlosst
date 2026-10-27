@@ -86,14 +86,18 @@ def build(theme, cal):
          f'<text x="{PAD_X}" y="40" font-size="17" font-weight="700" fill="{c["accent"]}">Contributions</text>',
          f'<text x="{W - PAD_X}" y="40" font-size="14" text-anchor="end" fill="{c["muted"]}">'
          f'{cal["totalContributions"]:,} in the last year</text>']
-    last_month = None
+    # month labels: one per month change, dropping any label that would collide with the next one
+    marks, last_month = [], None
+    for wi, week in enumerate(weeks):
+        month = datetime.date.fromisoformat(week["contributionDays"][0]["date"]).strftime("%b")
+        if month != last_month and wi < len(weeks) - 2:
+            marks.append((wi, month))
+        last_month = month
+    marks = [m for i, m in enumerate(marks) if i + 1 == len(marks) or marks[i + 1][0] - m[0] >= 3]
+    for wi, month in marks:
+        p.append(f'<text x="{PAD_X + wi * STEP}" y="{TOP - 10}" font-size="11" fill="{c["muted"]}">{month}</text>')
     for wi, week in enumerate(weeks):
         x = PAD_X + wi * STEP
-        first = week["contributionDays"][0]["date"]
-        month = datetime.date.fromisoformat(first).strftime("%b")
-        if month != last_month and wi < len(weeks) - 2:
-            p.append(f'<text x="{x}" y="{TOP - 10}" font-size="11" fill="{c["muted"]}">{month}</text>')
-        last_month = month
         for d in week["contributionDays"]:
             y = TOP + datetime.date.fromisoformat(d["date"]).isoweekday() % 7 * STEP
             n = d["contributionCount"]
