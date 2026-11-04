@@ -18,9 +18,9 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/contributions-dark.svg?v=29">
-    <source media="(prefers-color-scheme: light)" srcset="assets/contributions-light.svg?v=29">
-    <img alt="c4rlosst's contribution graph" src="assets/contributions-dark.svg?v=29" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/contributions-dark.svg?v=30">
+    <source media="(prefers-color-scheme: light)" srcset="assets/contributions-light.svg?v=30">
+    <img alt="c4rlosst's contribution heatmap and animated skyline" src="assets/contributions-dark.svg?v=30" width="100%">
   </picture>
 </p>
 

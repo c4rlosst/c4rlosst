@@ -8,6 +8,7 @@ Run:  GH_TOKEN=... python scripts/build_contributions.py [username]
 """
 import datetime
 import json
+import html
 import os
 import pathlib
 import sys
@@ -52,7 +53,7 @@ THEMES = {
 }
 
 CELL, GAP, PAD_X, TOP = 12, 3, 32, 78
-WAVE_PERIOD, WAVE_STEP = 8, 0.09  # seconds per loop; delay between columns
+MORPH_PERIOD = 18  # Hold the heatmap, rise into a skyline, then settle back.
 STEP = CELL + GAP
 
 
@@ -74,14 +75,63 @@ def build(theme, cal):
     weeks = cal["weeks"]
     W = PAD_X * 2 + len(weeks) * STEP - GAP
     H = TOP + 7 * STEP + 44
+    # All faces keep their identity as their geometry moves between views.
+    # CSS path interpolation works inside GitHub's script-free SVG images.
+    styles = [font_face(),
+              '.month{animation:labels 18s ease-in-out infinite}',
+              '@keyframes labels{0%,22%,94%,100%{opacity:1}38%,78%{opacity:0}}']
+    faces, static = [], []
+    max_count = max((d['contributionCount'] for w in weeks for d in w['contributionDays']), default=0)
+
+    def path(points):
+        return 'M' + ' L'.join(f'{x:.2f},{y:.2f}' for x, y in points) + ' Z'
+
+    def project(x, y, height=0):
+        # A shallow isometric camera fits the skyline into the original card.
+        return (PAD_X + 36 + x * .89 - y * .38,
+                TOP + 8 + x * .065 + y * .48 - height)
+
+    def shade(color, factor):
+        return '#' + ''.join(f'{round(int(color[i:i + 2], 16) * factor):02x}' for i in (1, 3, 5))
+
+    for wi, week in enumerate(weeks):
+        for day in week['contributionDays']:
+            row = datetime.date.fromisoformat(day['date']).isoweekday() % 7
+            x, y = wi * STEP, row * STEP
+            n = day['contributionCount']
+            level = LEVELS[day['contributionLevel']]
+            color = c['cells'][level]
+            height = 2 + 42 * (n / max_count) ** .7 if n and max_count else 1
+            flat = [(PAD_X + x, TOP + y), (PAD_X + x + CELL, TOP + y),
+                    (PAD_X + x + CELL, TOP + y + CELL), (PAD_X + x, TOP + y + CELL)]
+            base = [project(x, y), project(x + CELL, y),
+                    project(x + CELL, y + CELL), project(x, y + CELL)]
+            roof = [project(x, y, height), project(x + CELL, y, height),
+                    project(x + CELL, y + CELL, height), project(x, y + CELL, height)]
+            title = html.escape(f"{n} contribution{'s' if n != 1 else ''} on {day['date']}")
+            static.append(f'<rect x="{PAD_X + x}" y="{TOP + y}" width="{CELL}" height="{CELL}" rx="2.5" fill="{color}"><title>{title}</title></rect>')
+            # The wave delays each week's rise while keeping one shared loop.
+            rise = 30 + wi / max(1, len(weeks) - 1) * 10
+            settle = 80 + wi / max(1, len(weeks) - 1) * 10
+            shapes = [
+                ('left', [flat[3], flat[2], flat[2], flat[3]], [roof[3], roof[2], base[2], base[3]], shade(color, .66)),
+                ('right', [flat[1], flat[2], flat[2], flat[1]], [roof[1], roof[2], base[2], base[1]], shade(color, .82)),
+                ('top', flat, roof, color),
+            ]
+            day_faces = []
+            for face, start, end, fill in shapes:
+                name = f'd{wi}_{row}_{face}'
+                flat_path, raised_path = path(start), path(end)
+                styles.append(f"@keyframes {name}{{0%,22%,100%{{d:path('{flat_path}')}}"
+                              f"{rise:.2f}%,{settle:.2f}%{{d:path('{raised_path}')}}"
+                              f"96%{{d:path('{flat_path}')}}}}")
+                day_faces.append(f'<path d="{flat_path}" fill="{fill}" style="animation:{name} {MORPH_PERIOD}s ease-in-out infinite"><title>{title}</title></path>')
+            faces.append((x * .065 + y * .48, ''.join(day_faces)))
+    styles.append('.static{display:none}@media(prefers-reduced-motion:reduce){.scene{display:none}.static{display:inline}.month{animation:none}}')
     p = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
-         f'role="img" aria-label="{USER} contribution graph" font-family="{FONT}">',
-         f'<style>{font_face()}'
-         f'.on{{transform-box:fill-box;transform-origin:center;animation:wave {WAVE_PERIOD}s ease-in-out infinite}}'
-         f'@keyframes wave{{0%,12%,100%{{transform:scale(1);filter:none}}'
-         f'6%{{transform:scale(1.45);filter:drop-shadow(0 0 4px {c["accent"]})}}}}'
-         f'@media (prefers-reduced-motion:reduce){{.on{{animation:none}}}}'
-         f'</style>',
+         f'role="img" aria-label="{html.escape(USER, quote=True)} contribution heatmap and animated skyline" font-family="{FONT}">',
+         '<desc>A year of GitHub contributions. The heatmap rises into a skyline; taller buildings indicate more contributions. Reduced motion shows the flat heatmap.</desc>',
+         '<style>' + ''.join(styles) + '</style>',
          f'<rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" rx="14" fill="{c["bg"]}" stroke="{c["border"]}"/>',
          f'<text x="{PAD_X}" y="40" font-size="17" font-weight="700" fill="{c["accent"]}">Contributions</text>',
          f'<text x="{W - PAD_X}" y="40" font-size="14" text-anchor="end" fill="{c["muted"]}">'
@@ -95,16 +145,9 @@ def build(theme, cal):
         last_month = month
     marks = [m for i, m in enumerate(marks) if i + 1 == len(marks) or marks[i + 1][0] - m[0] >= 3]
     for wi, month in marks:
-        p.append(f'<text x="{PAD_X + wi * STEP}" y="{TOP - 10}" font-size="11" fill="{c["muted"]}">{month}</text>')
-    for wi, week in enumerate(weeks):
-        x = PAD_X + wi * STEP
-        for d in week["contributionDays"]:
-            y = TOP + datetime.date.fromisoformat(d["date"]).isoweekday() % 7 * STEP
-            n = d["contributionCount"]
-            level = LEVELS[d["contributionLevel"]]
-            anim = f' class="on" style="animation-delay:{wi * WAVE_STEP:.2f}s"' if level else ""
-            p.append(f'<rect x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="2.5" '
-                     f'fill="{c["cells"][level]}"{anim}><title>{n} on {d["date"]}</title></rect>')
+        p.append(f'<text class="month" x="{PAD_X + wi * STEP}" y="{TOP - 10}" font-size="11" fill="{c["muted"]}">{month}</text>')
+    p.append('<g class="scene">' + ''.join(markup for _, markup in sorted(faces, key=lambda face: face[0])) + '</g>')
+    p.append('<g class="static">' + ''.join(static) + '</g>')
     ly = H - 22
     lx = W - PAD_X - 5 * STEP - 30
     p.append(f'<text x="{lx - 8}" y="{ly + 10}" font-size="11" text-anchor="end" fill="{c["muted"]}">Less</text>')
