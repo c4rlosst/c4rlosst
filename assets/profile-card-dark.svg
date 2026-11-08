@@ -76,7 +76,7 @@
 <text class="v" x="582" y="220">University of the Philippines Mindanao</text>
 <g transform="translate(420,242) scale(1.4)" fill="none" stroke="#b8ea2b" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M4.3 3.2 1 6.9l3.3 3.7"/><path d="M7.7 3.2 11 6.9l-3.3 3.7"/></g>
 <text class="k" x="454" y="254">Languages:</text>
-<text class="v" x="582" y="254">JavaScript, Python, CSS, React, HTML, SQL</text>
+<text class="v" x="582" y="254">JavaScript, Python, CSS, HTML, SQL</text>
 <g transform="translate(420,276) scale(1.4)" fill="none" stroke="#b8ea2b" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="3" cy="9.6" r="1.5"/><circle cx="8.6" cy="8.1" r="1.5"/><path d="M4.5 9.6V2.4L10.1 1.4v6.7"/></g>
 <text class="k" x="454" y="288">Music:</text>
 <text class="v" x="582" y="288">Producer, Mixer, Recorder, Enthusiast</text>

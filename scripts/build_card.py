@@ -63,7 +63,7 @@ ROWS = [
     ("role", "Role:", "Data Scientist, WebDev, GameDev, UI/UX Designer"),
     ("cap", "Studying:", "BS Data Science, 2nd year"),
     ("sun", "School:", "University of the Philippines Mindanao"),
-    ("code", "Languages:", "JavaScript, Python, CSS, React, HTML, SQL"),
+    ("code", "Languages:", "JavaScript, Python, CSS, HTML, SQL"),
     ("music", "Music:", "Producer, Mixer, Recorder, Enthusiast"),
 ]
 CONTACT = [

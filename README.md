@@ -2,9 +2,9 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/profile-card-dark.svg?v=29">
-    <source media="(prefers-color-scheme: light)" srcset="assets/profile-card-light.svg?v=29">
-    <img alt="sai (c4rlosst) — Data Scientist, WebDev, GameDev, UI/UX Designer" src="assets/profile-card-dark.svg?v=29" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/profile-card-dark.svg?v=30">
+    <source media="(prefers-color-scheme: light)" srcset="assets/profile-card-light.svg?v=30">
+    <img alt="sai (c4rlosst) — Data Scientist, WebDev, GameDev, UI/UX Designer" src="assets/profile-card-dark.svg?v=30" width="100%">
   </picture>
 </p>
 
